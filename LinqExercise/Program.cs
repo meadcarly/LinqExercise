@@ -39,12 +39,13 @@ namespace LinqExercise
             Console.WriteLine();
 
             //Done  TODO: Order numbers in descending order and print to the console
-            var descendingOrder = numbers.OrderByDescending(x => x);
+            /*var descendingOrder = numbers.OrderByDescending(x => x);
             foreach (var number in descendingOrder)
             {
                 Console.WriteLine($"Descending order: {number}");
-            }
+            }*/
 
+            numbers.OrderByDescending(x => x).ToList().ForEach(x => Console.WriteLine(x));
             Console.WriteLine();
 
             //TODO: Print to the console only the numbers greater than 6
@@ -57,22 +58,28 @@ namespace LinqExercise
             Console.WriteLine();
 
             //TODO: Order numbers in any order (ascending or desc) but only print 4 of them **foreach loop only!**
-            var fourNumbers = numbers.OrderBy(X => X).Where(X => X < 4);
+            /*var fourNumbers = numbers.OrderBy(X => X).Where(X => X < 4);
             foreach (var number in fourNumbers)
             {
                 Console.WriteLine($"Only four numbers: {number}");
+            }*/
+            var fourNumbers = numbers.OrderBy(x => x);
+            foreach (var number in fourNumbers.Take(4))
+            {
+                Console.WriteLine(number);
             }
 
             Console.WriteLine();
 
             //TODO: Change the value at index 4 to your age, then print the numbers in descending order
-            int myAge = 33;
+            /*int myAge = 33;
             numbers[4] = myAge;
             var myAgeIncluded = numbers.OrderByDescending(x => x);
             foreach (var number in myAgeIncluded)
             {
                 Console.WriteLine($"Switched in my age: {number}");
-            }
+            }*/
+            numbers.Select((number, index) => index == 4 ? 33 : number).OrderByDescending(x => x).ToList().ForEach(x => Console.WriteLine(x));
 
             Console.WriteLine();
 
@@ -105,7 +112,7 @@ namespace LinqExercise
             Console.WriteLine();
 
             //TODO: Now print the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
-            var averageOfYoe = employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Sum(x => x.YearsOfExperience);
+            var averageOfYoe = employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Average(x => x.YearsOfExperience);
             Console.WriteLine($"Average of Years: {averageOfYoe}");
             Console.WriteLine();
 
@@ -113,7 +120,7 @@ namespace LinqExercise
             //TODO: Add an employee to the end of the list without using employees.Add()
             Console.WriteLine($"The list of employees includes: {employees.Count}");
             var lastEmployee = new Employee("Jax", "Harper", 44, 14);
-            
+            //employees = employees.Append(new Employee("Seth" "Bowman", 30, 5)).ToList();
             employees.Insert(employees.Count, lastEmployee);
             Console.WriteLine($"The list of employees includes: {employees.Count}");
             Console.WriteLine($"The list of employees includes:");
